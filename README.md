@@ -1,32 +1,41 @@
-# Vosk Listener with MQTT<a href="https://www.ohioiot.com"><img src="https://www.ohioiot.com/logo_150.jpg" width="40" ></a>
+# Listener B<a href="https://www.ohioiot.com"><img src="https://www.ohioiot.com/logo_150.jpg" width="40" ></a>
 
 ##### [(back to the Voice Controls organization page)](https://github.com/OhioIoT-Voice-Controls)
 
-This code was generated in the linked YouTube video about making a speech-to-text voice assistant on a Raspberry Pi with a USB mic and MQTT:  [Video](https://youtu.be/_ERvoHMBDac)
+This is a container implementation of our Vosk listener, with some flexibility to create your own custom commands.  The `docker-compose.yml` will spin up a Vosk listener and an MQTT broker, and link the listener to `commands.py` so you can edit the commands.  When you speak one of the defined commands, the listener send an MQTT message with topic `voice/command` where the payload is the command that is maps to your speech in commands.py.  
 
+You can see this repo in use in the OhioIoT YouTube video [3 Steps To Your Custom Voice Control](https://youtu.be/_ERvoHMBDac).
 
 ## Installation
-Run the following commands.  It works on Git Bash on Windows:
+Plug a USB microphone into a Raspberry Pi that has Docker and Docker Compose installed.  SSH into the Raspberry Pi and run the following commands:
 ```
-git clone https://github.com/OhioIoT-Voice-Controls/Vosk-Listener-MQTT.git vosk-mqtt
-cd vosk-mqtt
-python -m venv venv
-source venv/Scripts/activate
-pip install -r requirements.txt
+git clone https://github.com/OhioIoT-Voice-Controls/Listener-A.git listener_a
+cd listener_a
+nano commands.py
 ```
-Edit the IP address on line 16 of `listener.py` to match the IP address of the MQTT broker that you are running.
+Edit the `commands.py` to define your own customer commands.  Inside `commands.py`, they keys (the values before the colon) are the strings of spoken words that you will say to fire the command.  The values after the colon are what will be send when your spoken words are recognized as commands.
+```
+docker compose up
+```
+When you see the log `listening...`, it means your listener is up and listening.  At this point, speak one of the commands that you defined.  If Vosk successfully catches it, an MQTT message will go out to the broker.  Once you confirm the IP address of your Raspberry Pi, you can connect any other device to the Mosquitto broker, exposed on port 1883.  Your connected devices can subscribe to `voice/command` and hear what you are saying in the incoming message payloads.
 
-Then run:
+The `listener.py` in this repo is just an artifact, here for reference only.  You cannot run this file in this root directly with its current configuration.  To witness this file running inside the container on the Raspberry Pi, when the container is running, type:
 ```
-./+run
+docker exec -it listener sh
 ```
-If the script says `listening...`, it means you have successfully attached to the MQTT broker and are using the default microphone.  If you say "lights on" or "lights off", you will see that an MQTT messages is sent to the broker with topic `voice/command' and then payload `set_lights_on` or `set_lights_off`.
+And then, when inside the Listener container (`# `):
+```
+cd /app
+ls -la
+cat listener.py
+```
 
-Previous Video:  [Video](https://youtu.be/oKQ9xvL7ptM)
-
-Previous Git Repo:  [Code Example](https://github.com/OhioIoT-Voice-Controls/Vosk-Listener)
+## Links
+- [OhioIoT YouTube Channel](https://www.youtube.com/@ohioiot) - Agenda free tutorials showing you how to get started in IoT
+- [OhioIoT GitHub Index](https://github.com/OhioIoT-Examples) - The central index of code examples available on GitHub
 
 ## About
 <a href="https://www.ohioiot.com"><img src="https://www.ohioiot.com/logo_150.jpg" width="40" ></a>
 
 *OhioIoT is an IoT platform designed for small-scale IoT projects.  For more, check out our website at [www.OhioIoT.com](https://www.ohioiot.com).*
+
