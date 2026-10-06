@@ -30,7 +30,10 @@ cd /app
 ls -la
 cat listener.py
 ```
-
+When you are comfortable that everything is in order, start running the container in the background:
+```
+docker compose up -d
+```
 ## Links
 - [OhioIoT YouTube Channel](https://www.youtube.com/@ohioiot) - Agenda free tutorials showing you how to get started in IoT
 - [OhioIoT GitHub Index](https://github.com/OhioIoT-Examples) - The central index of code examples available on GitHub
