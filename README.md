@@ -11,6 +11,7 @@ Plug a USB microphone into a Raspberry Pi that has Docker and Docker Compose ins
 ```
 git clone https://github.com/OhioIoT-Voice-Controls/Listener-B.git listener_b
 cd listener_b
+rm listener.py README.md
 nano commands.py
 ```
 Edit the `commands.py` to define your own customer commands.  Inside `commands.py`, they keys (the values before the colon) are the strings of spoken words that you will say to fire the command.  The values after the colon are what will be send when your spoken words are recognized as commands.
