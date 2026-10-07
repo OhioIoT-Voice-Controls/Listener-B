@@ -18,6 +18,11 @@ docker compose up
 
 When you see `listening...` in the logs, it means your listener is up and ready.  At this point, speak one of the commands that you defined.  If Vosk successfully catches it (it usually does), an MQTT message will go out to the broker.  With the IP address of your Raspberry Pi, you can connect any other device to the Mosquitto broker, exposed at 1883.  Your connected devices can subscribe to `voice/command` and hear what you are saying in the incoming message payloads.
 
+When you are comfortable that everything is in order, start running the container in the background:
+```
+docker compose up -d
+```
+
 To edit the commands again, try:
 ```
 nano ~/listener/docker-compose.yml
@@ -42,10 +47,7 @@ cd /app
 ls -la
 cat listener.py
 ```
-When you are comfortable that everything is in order, start running the container in the background:
-```
-docker compose up -d
-```
+
 ## Links
 - [OhioIoT YouTube Channel](https://www.youtube.com/@ohioiot) - Agenda free tutorials showing you how to get started in IoT
 - [OhioIoT GitHub Index](https://github.com/OhioIoT-Examples) - The central index of code examples available on GitHub
