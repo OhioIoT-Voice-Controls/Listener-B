@@ -25,7 +25,7 @@ docker compose up -d
 
 To edit the commands again, try:
 ```
-nano ~/listener_b/docker-compose.yml
+nano ~/listener_b/commands.yml
 docker restart listener
 ```
 When editing commands, the keys (the values before the colon) are the strings of spoken words that you will say to fire the command.  The values after the colon are what will be send when your spoken words are recognized as commands:
