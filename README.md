@@ -7,7 +7,7 @@ This is a container implementation of our Vosk listener, with some flexibility t
 You can see this repo in use in the OhioIoT YouTube video [3 Steps To Your Custom Voice Control](https://youtu.be/_ERvoHMBDac).
 
 ## Installation
-Plug a USB microphone into a Raspberry Pi that has Docker and Docker Compose installed.  SSH into the Raspberry Pi and run the following commands.  When you see the command list pop up on the screen, edit it with what you want, and exit with `CTRL-x, y`:
+Plug a USB microphone into a Raspberry Pi that has Docker and Docker Compose installed.  SSH into the Raspberry Pi and run the following commands.  When the command list pops up, edit your commands as you choose, and exit with `CTRL-x, y`:
 ```
 git clone https://github.com/OhioIoT-Voice-Controls/Listener-B.git listener_b
 cd listener_b
@@ -15,11 +15,22 @@ rm listener.py README.md
 nano commands.py
 docker compose up
 ```
-Edit the `commands.py` to define your own customer commands.  Inside `commands.py`, they keys (the values before the colon) are the strings of spoken words that you will say to fire the command.  The values after the colon are what will be send when your spoken words are recognized as commands.
-```
-docker compose up
-```
+
 When you see the log `listening...`, it means your listener is up and listening.  At this point, speak one of the commands that you defined.  If Vosk successfully catches it, an MQTT message will go out to the broker.  Once you confirm the IP address of your Raspberry Pi, you can connect any other device to the Mosquitto broker, exposed on port 1883.  Your connected devices can subscribe to `voice/command` and hear what you are saying in the incoming message payloads.
+
+To edit the commands again, try:
+```
+nano ~/listener/docker-compose.yml
+docker restart listener
+```
+When editing commands, the keys (the values before the colon) are the strings of spoken words that you will say to fire the command.  The values after the colon are what will be send when your spoken words are recognized as commands:
+```
+      this is what you speak   
+                |        this is the command that goes out
+                |                    |
+     "close the garage door": "garage_close"
+
+```
 
 The `listener.py` in this repo is just an artifact, here for reference only.  You cannot run this file in this root directly with its current configuration.  To witness this file running inside the container on the Raspberry Pi, when the container is running, type:
 ```
