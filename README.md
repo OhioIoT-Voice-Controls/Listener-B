@@ -12,7 +12,7 @@ Plug a USB microphone into a Raspberry Pi that has Docker and Docker Compose ins
 git clone https://github.com/OhioIoT-Voice-Controls/Listener-B.git listener_b
 cd listener_b
 rm listener.py README.md
-nano commands.py            ## this will open an editor; edit your commands; ctrl-x, y to exit
+nano commands.py            ## this will open an editor
 docker compose up
 ```
 
