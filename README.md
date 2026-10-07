@@ -37,16 +37,14 @@ When editing commands, the keys (the values before the colon) are the strings of
 
 ```
 
-The `listener.py` in this repo is just an artifact, here for reference only.  You cannot run this file in this root directly with its current configuration.  To witness this file running inside the container on the Raspberry Pi, when the container is running, type:
+To tear this down if you don't want it:
 ```
-docker exec -it listener sh
+cd ~/listener_b
+docker compose down
+cd ..
+rm -rf listener_b
 ```
-And then, when inside the Listener container (`# `):
-```
-cd /app
-ls -la
-cat listener.py
-```
+
 
 ## Links
 - [OhioIoT YouTube Channel](https://www.youtube.com/@ohioiot) - Agenda free tutorials showing you how to get started in IoT
