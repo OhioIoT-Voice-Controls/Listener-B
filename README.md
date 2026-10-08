@@ -54,8 +54,8 @@ docker run -d --network=none --name=listener lvincek/listener_b:latest
 ```
 This container will start and then immediately fail because it wasn't given access to the sound system.  You can run this command to confirm that the working directory is `/app` and the file being run is `listener.py` in the working directory:
 ```
-docker image inspect lvincek/listener_b:latest --format 'WorkingDir={{.Config.WorkingDir}} \
-      Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}'
+docker image inspect lvincek/listener_b:latest --format \
+      'WorkingDir={{.Config.WorkingDir}}  Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}'
 ```
 With that, you can run the following command to echo out the `/app/listener.py` that is being run:
 ```
