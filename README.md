@@ -54,11 +54,12 @@ docker run -d --network=none --name=listener lvincek/listener_b:latest
 ```
 This container will start and then immediately fail because it wasn't given access to the sound system.  You can run this command to confirm that the working directory is `/app` and the file being run is `listener.py` in the working directory:
 ```
-docker image inspect lvincek/listener_b:latest --format 'WorkingDir={{.Config.WorkingDir}} Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}'
+docker image inspect lvincek/listener_b:latest --format 'WorkingDir={{.Config.WorkingDir}} \
+      Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}'
 ```
 With that, you can run the following command to echo out the `/app/listener.py` that is being run:
 ```
-docker run --rm --network=none --entrypoint cat lvincek/listener_a:latest /app/listener.py
+docker run --rm --network=none --entrypoint cat lvincek/listener_b:latest /app/listener.py
 ```
 You will see that this is the file shown in this git repo.  Reviewing the code you can see that it accesses the microphone and interprets speech, as is shown in the video.  When you are done, type `docker rm -f listener` to stop and remove the running container.
 
