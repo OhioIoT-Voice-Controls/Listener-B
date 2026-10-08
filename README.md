@@ -48,7 +48,9 @@ cd ..
 rm -rf listener_b
 ```
 ## Security Recommendation
-You probably shouldn't run someone else's Docker container if you don't trust it.  Rather than trust, you can verify what is in the container with the following steps.  If this doesn't resolve all questions, you can just skip straight to Listener C ([Listener C Build](https://github.com/OhioIoT-Voice-Controls/Listener-C-Build) and [Listener C](https://github.com/OhioIoT-Voice-Controls/Listener-C)), where you build the container image yourself, so any security concerns should be assuaged:
+You probably shouldn't run someone else's Docker container if you don't trust it.  Rather than trust, you can verify what is in the container with the following steps.  If this doesn't resolve all questions, you can just skip straight to Listener C ([Listener C Build](https://github.com/OhioIoT-Voice-Controls/Listener-C-Build) and [Listener C](https://github.com/OhioIoT-Voice-Controls/Listener-C)), where you build the container image yourself, so any security concerns should be assuaged.
+
+This runs the container with no privileges:
 ```
 docker run -d --network=none --name=listener lvincek/listener_b:latest
 ```
