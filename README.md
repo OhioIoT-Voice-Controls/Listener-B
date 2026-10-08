@@ -51,33 +51,16 @@ rm -rf listener_b
 You probably shouldn't run someone else's Docker container if you don't trust it.  Rather than trust, you can verify what is in the container with the following steps.  If this doesn't resolve all questions, you can just skip straight to Listener C ([Listener C Build](https://github.com/OhioIoT-Voice-Controls/Listener-C-Build) and [Listener C](https://github.com/OhioIoT-Voice-Controls/Listener-C)), where you build the container image yourself, so any security concerns should be assuaged:
 ```
 docker run -d --network=none --name=listener lvincek/listener_b:latest
-docker inspect listener
 ```
-Look at the result from the `inspect` command.  You will notice that the working directort is /app, and the command that is run is `python -u listener.py`.  
+This container will start and then immediately fail because it wasn't given access to the sound system.  You can run this command to confirm that the working directory is `/app` and the file being run is `listener.py` in the working directory:
 ```
-            ],
-            "Cmd": [
-                "python",
-                "-u",
-                "listener.py"                                 <-- look for this
-            ],
-            "Image": "lvincek/listener_b:latest",
-            "Volumes": null,
-            "WorkingDir": "/app",                             <-- look for this
-            "Entrypoint": null,
-
+docker image inspect lvincek/listener_b:latest --format 'WorkingDir={{.Config.WorkingDir}} Entrypoint={{json .Config.Entrypoint}} Cmd={{json .Config.Cmd}}'
 ```
-With that, you can step into the running container with:
+With that, you can run the following command to echo out the `/app/listener.py` that is being run:
 ```
-docker exec -it listener sh
+docker run --rm --network=none --entrypoint cat lvincek/listener_a:latest /app/listener.py
 ```
-And then, print the file on your screen, and you will see that it is in fact the listener.py that you see in this repo.
-```
-cat /app/listener.py
-```
-When you are done, type `exit` to exit the container, and then `docker rm -f listener` to stop and remove the running container.
-
-
+You will see that this is the file shown in this git repo.  Reviewing the code you can see that it accesses the microphone and interprets speech, as is shown in the video.  When you are done, type `docker rm -f listener` to stop and remove the running container.
 
 ## Links
 - [Listener A](https://github.com/OhioIoT-Voice-Controls/Listener-A)
