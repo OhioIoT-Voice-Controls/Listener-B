@@ -4,7 +4,7 @@
 
 This is a container implementation of our Vosk listener, with some flexibility to create your own custom commands.  The `docker-compose.yml` will spin up a Vosk listener and an MQTT broker, and link the listener to `commands.py` so you can edit the commands.  When you speak one of the defined commands, the listener send an MQTT message with topic `voice/command` where the payload is the command that is maps to your speech in commands.py.  
 
-You can see this repo in use in the OhioIoT YouTube video [3 Steps To Your Custom Voice Control](https://youtu.be/_ERvoHMBDac).
+You can see this repo in use in the OhioIoT YouTube video [3 Steps To Your Custom Voice Control](https://youtu.be/gnBhi573RWg).
 
 ## Installation
 
